@@ -1,0 +1,7 @@
+// global variable in Scss 
+:root {
+  --text: #222;
+}
+//scoped variable for this file will be accessed using variables.$bg
+// @use "<name-of-file-removing-under-score>" 
+$bg : peachpuff;
