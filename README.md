@@ -31,5 +31,9 @@ These will be removed by marking project as private because we do not want this 
 21. Browserlistrc file can be added to support multiple browsers, when our site is having traffic on the older browser then this will be handy. We will be getting updates in the main.css file with vendor prefixes with backward support. we have to test this can't trust blindly and caniuse (https://caniuse.com/?search=flexbox) should be used. This is being read by both babel and postcss loader.
 22. CanIuse can be used for JS as well like preset-env for babel, postcss
 23. There is a bug in webpack-dev-server for the browserlist we have to set target in webpack config as a fix for this.
+24. ["@babel/preset-react", { runtime: 'automatic' }] By this when you are using only JSX there is no need for import react. this is done by react coordinating with babel. this will be efficient when you are using state / lifecycle methods then you need the react import. this is applicable from react-17.
+25. When we are just adding .jsx file and running the build then it will fail because we have to let webpack know about this new extension, so will be adding resolve() in this case to share the extension, even after that we are not able compile because we have to set the loader. Since our bael loader is already setup we just have to enable jsx? there in the webpack config. Also correct file paths for other css files.
+26. After this it will compile, and a licence will be added in the dist folder.
+27. 
     
 

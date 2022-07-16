@@ -13,11 +13,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.s?css$/i,
+                test: /\.(s[ac]|c)ss$/i,
                 use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
             },
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: {
                     // without any additional setting this would be referring to .babelrc file
@@ -36,5 +36,9 @@ module.exports = {
         static: {
             directory: path.join(__dirname, 'dist') // todo now the content will be served from public directory
         }
+    },
+    // for resolving the JSX files that are incorportated and while building the build is not able to resolve them.
+    resolve: {
+        extensions: ['.js', '.jsx']
     }
 }
