@@ -54,7 +54,8 @@ module.exports = {
         new CleanWebpackPlugin(),
         new MiniCSSExtractPlugin(),
         new htmlWebpackPlugin({
-            template: './src/index-1.html'
+            template: './src/index-1.html',
+            inject:false
         })],
     // todo : eval devtool is being used for generating the main JS. The devtool is neither made for production nor 
     // todo : for the readable output files. for readable output files please make devtool as false.

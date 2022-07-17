@@ -67,6 +67,14 @@ These will be removed by marking project as private because we do not want this 
     2.  >path.resolve()
     3.  >cd - will let you in the last directory you were in
     4.  __dirname is the name of the directory from which you are running the command while path.resolve() is going to give you the absolute path to that directory, so you have to combine both these situations. what's the absolute path to directory for building. This resolve() will work on all the OS universally.
-38. 
+38. next is the hosting on the netlify for that you need to have the account or use the one with git.
+    1.  it has continuous integration i.e. everytime we push master then it will be autodeploying the code on netlify new version of site. if the code has any errors it won't deploy & host that.
+39. Because of the multiple script tags injected in the index.html generated from the htmlwebpack plugin issue appears that click handling won't be working (https://stackoverflow.com/questions/65770449/react-onclick-not-working-in-any-of-my-browsers-but-for-colleagues-it-does) 
+    1.  Proper solution is to either remove / comment our <script> tags (we are trying this)
+    2.  update the htmlwebpack plugin configuration for not injecting those scripts.
+
+
+
+
     
 
