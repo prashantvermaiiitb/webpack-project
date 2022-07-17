@@ -2,25 +2,29 @@ const path = require('path');
 const mode = process.env['NODE_ENV'] || 'development';
 const target = mode === 'development' ? 'web' : 'browserslist';
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     mode,
     target,
     // entry: './src/index.js',
     output: {
-        assetModuleFilename: 'images/[hash][ext][query]' // this is for getting all images in dist/images folder
-        //     filename: 'bundle.js',
-        //     path: path.resolve(__dirname, 'dist') // todo : this is being done so that on different OS this works properly by being differnt.
+        assetModuleFilename: 'images/[hash][ext][query]', // this is for getting all images in dist/images folder
+        //     filename: 'bundle.js', // todo for changing the name of the bundle 
+        // todo this has been declared to support the clean-webpack plugin.
+        // todo this is being used only when you want to change the output path.
+        path: path.resolve(__dirname, 'dist') // todo : this is being done so that on different OS this works properly by being differnt.
     },
     module: {
         rules: [
             {
                 test: /\.(png|gif)$/i,
                 type: 'asset', // this will put images in source code or in folder depending upon the size.
-                parser: { // for increasing the threshold size of the images that can be put inside the code which is 8KB by default
-                    dataUrlCondition: {
-                        maxSize: 30 * 1024
-                    }
-                }
+                // parser: { // for increasing the threshold size of the images that can be put inside the code which is 8KB by default
+                //     dataUrlCondition: {
+                //         maxSize: 30 * 1024
+                //     }
+                // }
             },
             {
                 test: /\.(jpe?g)$/i, //since this is used as background and it's large image
@@ -46,7 +50,12 @@ module.exports = {
             }
         ]
     },
-    plugins: [new MiniCSSExtractPlugin()],
+    plugins: [
+        new CleanWebpackPlugin(),
+        new MiniCSSExtractPlugin(),
+        new htmlWebpackPlugin({
+            template: './src/index-1.html'
+        })],
     // todo : eval devtool is being used for generating the main JS. The devtool is neither made for production nor 
     // todo : for the readable output files. for readable output files please make devtool as false.
     // devtool: false, //'source-map', // todo : this will be adding main.js.map files in the code

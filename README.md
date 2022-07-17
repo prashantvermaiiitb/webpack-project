@@ -52,6 +52,21 @@ These will be removed by marking project as private because we do not want this 
     1.  asset/resource : with setting in webpack.config.js it will create images folder or path within dist and copy all the images 
     2.  asset/inline : this will put the images in source code which are less than threshold defined in webpack, though we can increase this with 'parser {dataUrlCondition:{maxSize}}' setting in webpack but not an optimum choice. You will be told in the console with warnings !! We can just have smaller svg within code for the quick load.
     3.  asset: this will decide automatically what to do with the images whether to put inline or separate file, threshold is 8KB
-36. 
+36. Automated cleanup and template generation for the project 
+    1.  html-webpack-plugin : 
+        1.  for template support for generating HTML, we just moved that to src and see that after integrating the html-webpack plugin. 
+        2.  Index.html will be created by this plugin and will be adding in the dist folder with main.css and main.js 
+        3.  We can define the template object for this, it will take the HTML and add in the head the scripts with defer attribute while leaving all other static html as well even the old script & CSS rel tags included as well.
+    2.  Clean-webpack-plugin :
+        1.  Now we want to do clean-up in all the commands, so instead of adding this to all the commands we should use clean-webpack plugin.
+        2.  With this plugin we should define the output path, if there is none then there is a warning for plugin disabled while building. This should be defined. 
+        3.  It should also be on the top of the list of the plugin list.
+        4.  ouput/path should be an absolute path.
+37. Running node command on the terminal will let you run all other functions as well.
+    1.  >node
+    2.  >path.resolve()
+    3.  >cd - will let you in the last directory you were in
+    4.  __dirname is the name of the directory from which you are running the command while path.resolve() is going to give you the absolute path to that directory, so you have to combine both these situations. what's the absolute path to directory for building. This resolve() will work on all the OS universally.
+38. 
     
 
