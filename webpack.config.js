@@ -55,7 +55,7 @@ module.exports = {
         new MiniCSSExtractPlugin(),
         new htmlWebpackPlugin({
             template: './src/index-1.html',
-            inject:false
+            // inject:false // todo if this is there then no script is getting injected.
         })],
     // todo : eval devtool is being used for generating the main JS. The devtool is neither made for production nor 
     // todo : for the readable output files. for readable output files please make devtool as false.
