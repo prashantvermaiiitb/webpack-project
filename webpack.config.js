@@ -6,12 +6,32 @@ module.exports = {
     mode,
     target,
     // entry: './src/index.js',
-    // output: {
-    //     filename: 'bundle.js',
-    //     path: path.resolve(__dirname, 'dist') // todo : this is being done so that on different OS this works properly by being differnt.
-    // },
+    output: {
+        assetModuleFilename: 'images/[hash][ext][query]' // this is for getting all images in dist/images folder
+        //     filename: 'bundle.js',
+        //     path: path.resolve(__dirname, 'dist') // todo : this is being done so that on different OS this works properly by being differnt.
+    },
     module: {
         rules: [
+            {
+                test: /\.(png|gif)$/i,
+                type: 'asset', // this will put images in source code or in folder depending upon the size.
+                parser: { // for increasing the threshold size of the images that can be put inside the code which is 8KB by default
+                    dataUrlCondition: {
+                        maxSize: 30 * 1024
+                    }
+                }
+            },
+            {
+                test: /\.(jpe?g)$/i, //since this is used as background and it's large image
+                type: 'asset/resource' // this will be creating separate folder dist/images 
+
+            },
+            {
+                test: /\.(svg)$/i, // since SVG are smaller images 
+                type: 'asset/inline' // this will put all the images inline in the source code
+
+            },
             {
                 test: /\.(s[ac]|c)ss$/i,
                 use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
@@ -37,7 +57,7 @@ module.exports = {
             directory: path.join(__dirname, 'dist') // todo now the content will be served from public directory
         }
     },
-    // for resolving the JSX files that are incorportated and while building the build is not able to resolve them.
+    // todo for resolving the JSX files that are incorportated and while building.
     resolve: {
         extensions: ['.js', '.jsx']
     }

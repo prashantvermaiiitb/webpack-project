@@ -34,6 +34,24 @@ These will be removed by marking project as private because we do not want this 
 24. ["@babel/preset-react", { runtime: 'automatic' }] By this when you are using only JSX there is no need for import react. this is done by react coordinating with babel. this will be efficient when you are using state / lifecycle methods then you need the react import. this is applicable from react-17.
 25. When we are just adding .jsx file and running the build then it will fail because we have to let webpack know about this new extension, so will be adding resolve() in this case to share the extension, even after that we are not able compile because we have to set the loader. Since our bael loader is already setup we just have to enable jsx? there in the webpack config. Also correct file paths for other css files.
 26. After this it will compile, and a licence will be added in the dist folder.
-27. 
+27. For the example to handle images we have 
+    1.  jpeg: used for background image
+    2.  svg: for the bullet points 
+    3.  gif: on the page with image tag
+    4.  png: on the page with image tag
+28. Just building this without any setting in webpack.config.js is not giving any error and working fine.
+29. In the past we were using fileloader or url loader for loading the images that's now not needed in webpack-5, there is a built in way to do this w/o any extra packages to be installed, so within the CSS webpack5 is able to get the image and put it in the bundle but not within source code.
+30. We will now try to create the <img> tag within the code and see. this is NOT WORKING. because we are importing the SVG in the JS code and asking webpack to compile and run.
+31. Now we are making the handling in webpack.config.js to see what's extra we are going to get 
+    1.  <img> should work with this -- yes 
+    2.  <img> with src having svg in that are working 
+32. There was an error for MiniCSSExtractPlugin that's not coming in our code by using asset/resource with that.
+33. If index.html is not there in the dist folder you will be seeing the directory structure on doing https://localhost:8080
+34. 'assetModuleFilename' is the property for the files to be copied from the src folder to the dist folder.
+35. There are 3 types for the image asset handling 
+    1.  asset/resource : with setting in webpack.config.js it will create images folder or path within dist and copy all the images 
+    2.  asset/inline : this will put the images in source code which are less than threshold defined in webpack, though we can increase this with 'parser {dataUrlCondition:{maxSize}}' setting in webpack but not an optimum choice. You will be told in the console with warnings !! We can just have smaller svg within code for the quick load.
+    3.  asset: this will decide automatically what to do with the images whether to put inline or separate file, threshold is 8KB
+36. 
     
 
