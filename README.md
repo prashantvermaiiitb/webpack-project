@@ -80,7 +80,7 @@ These will be removed by marking project as private because we do not want this 
         2.  live reloading 
         3.  and we don't want them on build-dev
         4.  Added SERVE as another parameter so that only to have this is in condition and it's the development environment in itself as a solution.
-41. 
+41. https://app.netlify.com/ will be used for the further deployment process
 
 
 
