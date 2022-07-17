@@ -72,6 +72,15 @@ These will be removed by marking project as private because we do not want this 
 39. Because of the multiple script tags injected in the index.html generated from the htmlwebpack plugin issue appears that click handling won't be working (https://stackoverflow.com/questions/65770449/react-onclick-not-working-in-any-of-my-browsers-but-for-colleagues-it-does) 
     1.  Proper solution is to either remove / comment our <script> tags (we are trying this) but with this code getting deployed in netlifly is not working.
     2.  update the htmlwebpack plugin configuration for not injecting those scripts.
+40. React Fast refresh : 
+    1.  developed for react native. This is different from hot module reloading and live reloading. THis persists the state of the compoenent but when parent component is deleted for testing in the DOM then child component also needed to be refreshed. This is helpful in testing complex component with complex states.
+    2.  @refresh state is the pragma tha can be added: this will wipe the state now. this is actually force reload options that can be done on a file by file basis.
+    3.  This will be needed only when we are running 
+        1.  webpack dev server 
+        2.  live reloading 
+        3.  and we don't want them on build-dev
+        4.  Added SERVE as another parameter so that only to have this is in condition and it's the development environment in itself as a solution.
+41. 
 
 
 

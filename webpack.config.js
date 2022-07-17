@@ -1,13 +1,31 @@
 const path = require('path');
 const mode = process.env['NODE_ENV'] || 'development';
-const target = mode === 'development' ? 'web' : 'browserslist';
+// todo: checking Environment
+const isDevelopment = mode === 'development';
+const target = isDevelopment ? 'web' : 'browserslist';
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// todo: React refreh plugin
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+// todo: plugins array 
+const plugins = [
+    new CleanWebpackPlugin(),
+    new MiniCSSExtractPlugin(),
+    new htmlWebpackPlugin({
+        template: './src/index-1.html',
+        // inject:false // todo if this is there then no script is getting injected.
+    })].filter(Boolean);
+/**
+ * Only including react refresh when the build envrionment is Dev
+ */
+if (process.env.SERVE) {
+    plugins.push(new ReactRefreshWebpackPlugin())
+}
 module.exports = {
     mode,
     target,
-    // entry: './src/index.js',
+    entry: './src/index.js', // todo this is being enabled for the "REACT FAST REFRESH" because it was triggering LIVE reloading
     output: {
         assetModuleFilename: 'images/[hash][ext][query]', // this is for getting all images in dist/images folder
         //     filename: 'bundle.js', // todo for changing the name of the bundle 
@@ -45,18 +63,19 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     // without any additional setting this would be referring to .babelrc file
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
+
+                    // loader: require.resolve('babel-loader'),
+                    // options: {
+                    //     // ... other options
+                    //     // DO NOT apply the Babel plugin in production mode!
+                    //     plugins: [isDevelopment && require.resolve('react-refresh/babel')].filter(Boolean),
+                    // },
                 }
             }
         ]
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new MiniCSSExtractPlugin(),
-        new htmlWebpackPlugin({
-            template: './src/index-1.html',
-            // inject:false // todo if this is there then no script is getting injected.
-        })],
+    plugins,
     // todo : eval devtool is being used for generating the main JS. The devtool is neither made for production nor 
     // todo : for the readable output files. for readable output files please make devtool as false.
     // devtool: false, //'source-map', // todo : this will be adding main.js.map files in the code
