@@ -84,6 +84,9 @@ These will be removed by marking project as private because we do not want this 
 42. Next we are planning to put on the standard way of commiting the messsages 
     1.  for this we are planning to have standard-version as the supporting package.
     2.  Added a release command in package.json for the same
+    3.  After this we are ready to trigger the command 'yarn release'.
+    4.  standard release package will be generating a change log file and we will be pushing it to git hub repo.
+    5.  
 
 
 
